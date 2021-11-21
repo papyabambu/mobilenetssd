@@ -26,7 +26,7 @@ UPLOAD_FOLDER ='static/uploads/'
 DOWNLOAD_FOLDER = 'static/downloads/'
 ALLOWED_EXTENSIONS = {'jpg', 'png','.jpeg'}
 
-lineaccesstoken = 's+cLTomMsRUuf0J2i+YJfTxGi1yw1w8/9TKJbk/ghyhp2B9jNKoFvMw8Gd/FgeQXS2VrvH155m4SgzxAoM/QV+EukN5nbjzWtGiGLeUAWByE3mFY24yGjNxSteIE84RUDOqCxJn06OxY0E+HerpoTAdB04t89/1O/w1cDnyilFU='
+lineaccesstoken = ''
 
 line_bot_api = LineBotApi(lineaccesstoken)
 
@@ -149,10 +149,15 @@ def event_handle(event):
 
     if msgType == "text":
         msg = str(event["message"]["text"])
-        if  msg  ==  "สวัสดี" :
-            ReplyObj  =  TextSendMessage ( text = "แมวเหมียว" )
-        ReplyObj  =  TextSendMessage ( text = "แมว" )
-        line_bot_api . Reply_message ( rtoken , ReplyObj ))
+        if msg == "สวัสดี":
+            replyObj = TextSendMessage(text="ก็มาดิ ฮู้กๆ")
+        elif msg == "ไปไหนดี":
+            replyObj = TextSendMessage(text="อยู่บ้านเถอะ")
+        elif msg == "เหมียว":
+            replyObj = TextSendMessage(text="น้องแมว")
+        else :
+            replyObj = TextSendMessage(text=msg)
+        line_bot_api.reply_message(rtoken, replyObj)
     elif msgType == "image":
         try:
             message_content = line_bot_api.get_message_content(event['message']['id'])
